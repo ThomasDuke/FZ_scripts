@@ -8,11 +8,24 @@ if (-Not (Test-Path -Path $installPath)) {
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/ThomasDuke/FZ_scripts/main/Configuration.xml" -OutFile "$installPath\Configuration.xml"
 Invoke-WebRequest -Uri "https://github.com/ThomasDuke/FZ_scripts/raw/main/officedeploymenttool_17531-20046.exe" -OutFile "$installPath\officedeploymenttool.exe"
 
-# Execute the installer
-Start-Process -FilePath "$installPath\officedeploymenttool.exe" -ArgumentList "/quiet" -WindowStyle Hidden -Wait
+# Execute the installer in background
+$installerPath = "$installPath\officedeploymenttool.exe"
+if (Test-Path -Path $installerPath) {
+    Start-Process -FilePath $installerPath -ArgumentList "/quiet" -WindowStyle Hidden -Wait
+} else {
+    Write-Output "Installer not found at $installerPath"
+    exit 1
+}
 
-# Run setup to install Office
-Start-Process -FilePath "$installPath\setup.exe" -ArgumentList "/configure $installPath\Configuration.xml" -WindowStyle Hidden -Wait
+# Check if setup.exe is extracted
+$setupPath = "$installPath\setup.exe"
+if (Test-Path -Path $setupPath) {
+    # Run setup to install Office
+    Start-Process -FilePath $setupPath -ArgumentList "/configure $installPath\Configuration.xml" -WindowStyle Hidden -Wait
+} else {
+    Write-Output "Setup file not found at $setupPath"
+    exit 1
+}
 
 # Function to check activation status
 function Check-Activation {
