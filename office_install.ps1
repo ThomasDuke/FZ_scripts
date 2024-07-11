@@ -30,7 +30,11 @@ if (Test-Path -Path $setupPath) {
 # Function to check activation status
 function Check-Activation {
     $result = & "cscript" "C:\Program Files\Microsoft Office\Office16\ospp.vbs" "/dstatus" 2>&1
-    return $result -like "*<Product activation successful>*"
+    if ($result -contains "<Product activation successful>"){
+        exit 0
+    }else{
+        exit 1
+    }
 }
 
 # Function to activate Office
@@ -51,7 +55,10 @@ foreach ($server in $kmsServers) {
         Write-Output "Office successfully activated using $server."
         exit 0
     }
+    else{
+        Write-Output "Office activation failed with all KMS servers."
+    }
 }
 
-Write-Output "Office activation failed with all KMS servers."
+
 exit 1
