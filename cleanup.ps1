@@ -2,11 +2,9 @@
 $tempPaths = @(
     "$env:windir\Temp",
     "$env:USERPROFILE\AppData\Local\Temp",
-    "$env:USERPROFILE\AppData\Local\Microsoft\Windows\Temporary Internet Files"
+    "$env:USERPROFILE\AppData\Local\Microsoft\Windows\Temporary Internet Files",
+    "$env:windir\SoftwareDistribution\Download"
 )
-
-# Définir la date limite pour les fichiers à supprimer (ici, fichiers plus vieux que 30 jours)
-$limitDate = (Get-Date).AddDays(-30)
 
 # Fonction pour enregistrer les logs
 function Write-Log {
