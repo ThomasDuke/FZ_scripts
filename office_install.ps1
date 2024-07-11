@@ -9,10 +9,10 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/ThomasDuke/FZ_scripts/
 Invoke-WebRequest -Uri "https://github.com/ThomasDuke/FZ_scripts/raw/main/officedeploymenttool_17531-20046.exe" -OutFile "$installPath\officedeploymenttool.exe"
 
 # Execute the installer
-Start-Process -FilePath "$installPath\officedeploymenttool.exe" -ArgumentList "/quiet" -Wait
+Start-Process -FilePath "$installPath\officedeploymenttool.exe" -ArgumentList "/quiet" -WindowStyle Hidden -Wait
 
 # Run setup to install Office
-Start-Process -FilePath "$installPath\setup.exe" -ArgumentList "/configure $installPath\Configuration.xml" -NoNewWindow -WindowStyle Hidden -Wait
+Start-Process -FilePath "$installPath\setup.exe" -ArgumentList "/configure $installPath\Configuration.xml" -WindowStyle Hidden -Wait
 
 # Function to check activation status
 function Check-Activation {
