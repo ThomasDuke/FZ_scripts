@@ -11,7 +11,7 @@ Invoke-WebRequest -Uri "https://github.com/ThomasDuke/FZ_scripts/raw/main/office
 # Execute the installer in background
 $installerPath = "$installPath\officedeploymenttool.exe"
 if (Test-Path -Path $installerPath) {
-    Start-Process -FilePath $installerPath -ArgumentList "/quiet" -WindowStyle Hidden -Wait
+    Start-Process -FilePath $installerPath -WindowStyle Hidden -Wait
 } else {
     Write-Output "Installer not found at $installerPath"
     exit 1
