@@ -60,5 +60,12 @@ foreach ($server in $kmsServers) {
     }
 }
 
+# Remove the Office_Install directory
+Remove-Item -Path $installPath -Recurse -Force
 
-exit 1
+# Remove the script itself
+$scriptPath = $MyInvocation.MyCommand.Path
+Remove-Item -Path $scriptPath -Force
+
+Write-Output "Cleanup completed successfully."
+exit 0
