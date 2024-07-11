@@ -30,7 +30,7 @@ if (Test-Path -Path $setupPath) {
 # Function to check activation status
 function Check-Activation {
     $result = & "cscript" "C:\Program Files\Microsoft Office\Office16\ospp.vbs" "/dstatus" 2>&1
-    return $result -like "*LICENSE STATUS: ---LICENSED---*"
+    return $result -like "*<Product activation successful>*"
 }
 
 # Function to activate Office
